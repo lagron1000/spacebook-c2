@@ -45,7 +45,7 @@ var SpacebookApp = function () {
         return posts.comments[i];
       }
     }
-  }
+  } 
 
   var createPost = function (text) {
     var post = {
