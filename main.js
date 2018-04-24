@@ -45,7 +45,7 @@ var SpacebookApp = function () {
         return posts.comments[i];
       }
     }
-  } 
+  }
 
   var createPost = function (text) {
     var post = {
@@ -102,7 +102,8 @@ var removeComment = function(currentPost){
     // var actualP = $(currentPost).closest('.post');
     for (let i = 0 ; i < comment.length; i++){
       console.log(comment[i].id)
-    }       
+    }
+
 }
 
 
