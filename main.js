@@ -53,16 +53,15 @@ var SpacebookApp = function () {
   }
 
   var getCommentsHtml = function (currentPost) {
-    // var $clickedPost = $(currentPost).closest('.post');
-    // var id = $clickedPost.data().id;
-    // var post = _findPostById(id);
+    if (currentPost.comments.length>0){
     for (let i = 0; i < currentPost.comments.length; i++) {
 
-        var commentsContainer = '<div class="comDiv"><li>' + currentPost.comments[i] + '</li> </div>';
-        $(currentPost).siblings('#' + id).append(commentsContainer)
+        var commentsContainer = '<li>' + currentPost.comments[i] + '</li>';
 
     }
+    return commentsContainer
   }
+}
 
   //   var getCommentsHtml = function () {
   //       $('.commentsContainer').empty();
@@ -97,6 +96,7 @@ var SpacebookApp = function () {
 
        
     }
+ 
   }
 
   var removePost = function (currentPost) {
@@ -154,7 +154,8 @@ $('.posts').on('click', '.show-comments', function () {
 });
 
 $(".posts").on('click', '.add-comment', function () {
-  var text = $(this).closest($(".comment-name")).val()
+  var currP = $(this).closest('.post')
+  var text = $(currP).find($(".comment-name")).val()
   app.createComment(this, text);
-  app.getCommentsHtml(this);
+  app.renderPosts(this);
 })
