@@ -39,17 +39,28 @@ var SpacebookApp = function () {
     }
   }
 
+  var _findPostIndex = function (id) {
+    for (var i = 0; i < posts.length; i += 1) {
+      if (posts[i].id === id) {
+        return i;
+      }
+    }
+  }
+
 
 
   var postIndex = 0
 
   var createPost = function (text) {
+    renderPosts();
+    for (let i=0; i<posts.length+1; i++){
     var post = {
       text: text,
-      id: currentId,
+      id: i,
       comments: [],
       index: postIndex
     }
+  }
 
     currentId += 1;
     postIndex += 1;
@@ -102,10 +113,11 @@ var removeComment = function(currentPost){
   var $clickedPost = $(currentPost).closest('.post');
   var id = $clickedPost.data().id;
   var post = _findPostById(id);
+  var postInd =  _findPostIndex(id)
 
   var $clickedComment = $(currentPost).closest('.comment');
   var commId = $clickedComment.data().id;
-  var comment = _findCommentById(commId, post.index);
+  var comment = _findCommentById(commId, postInd);
     // var actualP = $(currentPost).closest('.post');
     for (let i = 0 ; i < post.comments.length; i++){
       // console.log(post.comments[i])
