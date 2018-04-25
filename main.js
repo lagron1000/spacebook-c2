@@ -121,11 +121,18 @@ var removeComment = function(currentPost){
   //       }
   //     }
   //   }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   var renderPosts = function () {
-    $posts.empty();
 
-    for (let post of posts) {
+    $posts.empty();
+    var postsObj = {posts}
+
+
+    for (let i=0; i<posts.length; i++) {
+      var post = posts[i]
+      var source = $("#post-template").html();
+      var template = Handlebars.compile(source);
+      var newHTML = template(post)
 
       let commentsContainer = `<div class='comments'>
         <input type="text" class="comment-name">
@@ -136,7 +143,7 @@ var removeComment = function(currentPost){
       + '<a href="#" class="remove">remove</a> ' + '<a href="#" class="show-comments">comments</a> ' + post.text +
       commentsContainer + '</div>';
 
-      $posts.append(htmlPost);
+      $posts.append(newHTML);
 
        
     }
@@ -157,7 +164,7 @@ var removeComment = function(currentPost){
     var $clickedPost = $(currentPost).closest('.post');
     $clickedPost.find('.comments').toggleClass('show');
   }
-
+  
   return {
     createPost: createPost,
     renderPosts: renderPosts,
