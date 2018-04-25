@@ -39,23 +39,20 @@ var SpacebookApp = function () {
     }
   }
 
-  var _findCommentById = function (id) {
-    for (var i = 0; i < posts.comments.length; i += 1) {
-      if (posts.comments[i].id === id) {
-        return posts.comments[i];
-      }
-    }
-  }
+
+
+  var postIndex = 0
 
   var createPost = function (text) {
     var post = {
       text: text,
       id: currentId,
-      comments: []
+      comments: [],
+      index: postIndex
     }
 
     currentId += 1;
-
+    postIndex += 1;
     posts.push(post);
   }
 
@@ -81,7 +78,7 @@ var SpacebookApp = function () {
     if (currentPost.comments.length>0){ 
     for (let i = 0 ; i < currentPost.comments.length; i++) {
         // var curCom = currentPost.comments[i]
-      commentsContainer +=  '<li class="comment" id="'+currentPost.comments[i].id+'"><button type="button" class="btn btn-danger btn-xs remove-comment">X</button>'+currentPost.comments[i].text+'</li>'
+      commentsContainer +=  '<li class="comment" data-id="'+currentPost.comments[i].id+'"><button type="button" class="btn btn-danger btn-xs remove-comment">X</button>'+currentPost.comments[i].text+'</li>'
   }
     return commentsContainer
   } else {
@@ -89,19 +86,29 @@ var SpacebookApp = function () {
   }
 }
 
+var _findCommentById = function (id, index) {
+  for (var i = 0; i < posts[index].comments.length; i += 1) {
+    if (posts[index].comments[i].id === id) {
+      return posts[index].comments.splice(i, 1);;
+    }
+  }
+}
+
+
 var removeComment = function(currentPost){
   //i want the function to remove the comment from the comments array and then rerender the whole comment section
   //$(this).siblings().remove()
+  debugger;
   var $clickedPost = $(currentPost).closest('.post');
   var id = $clickedPost.data().id;
   var post = _findPostById(id);
 
   var $clickedComment = $(currentPost).closest('.comment');
   var commId = $clickedComment.data().id;
-  var comment = _findCommentById(commId)
+  var comment = _findCommentById(commId, post.index);
     // var actualP = $(currentPost).closest('.post');
-    for (let i = 0 ; i < comment.length; i++){
-      console.log(comment[i].id)
+    for (let i = 0 ; i < post.comments.length; i++){
+      // console.log(post.comments[i])
     }
 
 }
