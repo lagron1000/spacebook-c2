@@ -77,11 +77,11 @@ var SpacebookApp = function () {
   }
 
   var getCommentsHtml = function (currentPost) {
+    var commentsContainer = '';
     if (currentPost.comments.length>0){ 
     for (let i = 0 ; i < currentPost.comments.length; i++) {
         // var curCom = currentPost.comments[i]
-      var commentsContainer =  '<li class="comment" id="'+currentPost.comments[i].id+'"><button type="button" class="btn btn-danger btn-xs remove-comment">X</button>'+currentPost.comments[i].text+'</li>'
-
+      commentsContainer +=  '<li class="comment" id="'+currentPost.comments[i].id+'"><button type="button" class="btn btn-danger btn-xs remove-comment">X</button>'+currentPost.comments[i].text+'</li>'
   }
     return commentsContainer
   } else {
