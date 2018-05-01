@@ -1,34 +1,43 @@
 var SpacebookApp = function () {
+  var STORAGE_ID = 'spacebook';
+  var getFromLocalStorage = function () {
+    return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
+  }
+  var saveToLocalStorage = function () {
+    localStorage.setItem(STORAGE_ID, JSON.stringify(posts));
+  }
+  
   // dummy data
-  var posts = [
-    {
-      text: "Hello world 1", comments: [
-        { text: "Man, this is a comment 1!" },
-        { text: "Man, this is a comment 2!" },
-        { text: "Man, this is a comment 3!" }
-      ]
-    },
-    {
-      text: "Hello world 2", comments: [
-        { text: "Man, this is a comment 1!" },
-        { text: "Man, this is a comment 2!" },
-        { text: "Man, this is a comment 3!" }
-      ]
-    },
-    {
-      text: "Hello world 3", comments: [
-        { text: "Man, this is a comment 1!" },
-        { text: "Man, this is a comment 2!" },
-        { text: "Man, this is a comment 3!" }
-      ]
-    }
-  ];
+  var posts = getFromLocalStorage();
+    // {
+    //   text: "Hello world 1", comments: [
+    //     { text: "Man, this is a comment 1!" },
+    //     { text: "Man, this is a comment 2!" },
+    //     { text: "Man, this is a comment 3!" }
+    //   ]
+    // },
+    // {
+    //   text: "Hello world 2", comments: [
+    //     { text: "Man, this is a comment 1!" },
+    //     { text: "Man, this is a comment 2!" },
+    //     { text: "Man, this is a comment 3!" }
+    //   ]
+    // },
+    // {
+    //   text: "Hello world 3", comments: [
+    //     { text: "Man, this is a comment 1!" },
+    //     { text: "Man, this is a comment 2!" },
+    //     { text: "Man, this is a comment 3!" }
+    //   ]
+    // }
+  
 
   // render posts to page
   // this function empties the posts div, 
   // then adds each post them from the posts array 
   // along with the appropriate HTML
   var _renderPosts = function () {
+
     // variable for storing our posts div
     var $posts = $('.posts');
 
@@ -75,7 +84,10 @@ var SpacebookApp = function () {
 
   // build a single post object and push it to array
   var createPost = function (text) {
+    getFromLocalStorage();
     posts.push({ text: text, comments: [] });
+    saveToLocalStorage()
+    getFromLocalStorage();
     _renderPosts();
     _renderComments();
   };
@@ -104,6 +116,7 @@ var SpacebookApp = function () {
   //  invoke the render method on app load
   _renderPosts();
   _renderComments();
+  console.log(posts)
 
   return {
     createPost: createPost,
