@@ -2,24 +2,47 @@
      * @class Responsible for storing and manipulating Spacebook posts, in-memory
      */
 class PostsRepository {
-    constructor() {
+    constructor(postApi) {
         this.posts = [];
+        this.postApi = postApi;
+        // this.postsRenderer = postsRenderer;
+        console.log(postApi)
+        // this.initData();
+        // this.postApi.fetch(thisPostRep)
+    }
+
+    initData(){
+        return this.postApi.fetch().then((data)=>{
+            this.posts = data
+        })
     }
 
     addPost(postText) {
-        this.posts.push({ text: postText, comments: [] });
+        var newPost = { text: postText};
+        return this.postApi.post(newPost).then((newPost)=>{
+            this.posts.push(newPost)
+        })
     }
 
-    removePost(index) {
-        this.posts.splice(index, 1);
+    removePost(id) {
+        return this.postApi.delete(id).then((data)=>{
+            this.posts = data
+        })
+        // this.posts.splice(index, 1);
     }
     
-    addComment(newComment, postIndex) {
-        this.posts[postIndex].comments.push(newComment);
+    addComment(newComment, postId) {
+        return this.postApi.postCom(newComment, postId).then((data)=>{
+            this.posts = data
+        })
+        // this.posts[postIndex].comments.push(newComment);
     };
 
-    deleteComment(postIndex, commentIndex) {
-        this.posts[postIndex].comments.splice(commentIndex, 1);
+    deleteComment(postId, comId) {
+        return this.postApi.deleteCom(postId, comId).then((data)=>{
+            this.posts = data
+        })
+        // this.posts[postIndex].comments.splice(commentIndex, 1);
       };
 }
 
