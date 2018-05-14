@@ -20,13 +20,20 @@
                     <div class="form-group">
                         <input class="form-control" type="text" id="postText" placeholder="Enter Post Text"/>
                     </div>
+                    <form enctype="multipart/form-data">
+                        <input class="form-control" type="text" name="username" placeholder="Username"/>
+                        <br> <br>
+                        <input type="file" name="photoField"/>
+                      </form>
+                      <br>
                     <button type="button" id="addpost" class="btn btn-primary">Post</button>
+                      
                 </form>
             </div>
         </div>
     </div>
     <script id="post-template" type="text/x-handlebars-template">
-        <div class="post" data-id="{{_id}}"> {{text}} <a class="toggle-comments" href="#"> Comments </a>
+        <div class="post" data-id="{{_id}}"> {{text}} <img src="{{image}}"> <a class="toggle-comments" href="#"> Comments </a>
             <button type="button" class="btn btn-danger remove-post">Remove Post</button>
             <div></div>
             <div class="comments-container">

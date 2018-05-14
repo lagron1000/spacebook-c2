@@ -17,8 +17,8 @@ class PostsRepository {
         })
     }
 
-    addPost(postText) {
-        var newPost = { text: postText};
+    addPost(postText, postImage) {
+        var newPost = { text: postText, image: postImage};
         return this.postApi.post(newPost).then((newPost)=>{
             this.posts.push(newPost)
         })

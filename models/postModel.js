@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 
 let commentSchema = new mongoose.Schema({
     text: String,
+    image: String,
     user: String
 });
 
