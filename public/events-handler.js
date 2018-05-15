@@ -10,6 +10,8 @@ class EventsHandler {
     registerAddPost() {
         $('#addpost').on('click', () => {
             let $input = $("#postText");
+            let $img = $(".picture");
+            console.log($img.val())
             if ($input.val() === "") {
                 alert("Please enter text!"); 
             } else {
